@@ -2,7 +2,7 @@
 
 
 bool is_bpm_ok(float bpm) {
-  return !(bpm < 70 || bpm > 150);
+  return ((unsigned)(limit - val) <= 80);
 }
 
 bool is_spo2_ok(float spo2) {
