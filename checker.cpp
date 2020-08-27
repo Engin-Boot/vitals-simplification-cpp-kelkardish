@@ -1,27 +1,17 @@
 #include <assert.h>
 
-bool is_vital_normal(float value, int upperLimit, int lowerLimit) {    // (normalRange = upperlimt - value) <= (upperLimit - lowerLimit)
+bool is_vital_normal(float value, int upperLimit, int lowerLimit) {    // (normalRange = [ 0 , upperLimit-lowerLimit]
   return ((unsigned)(upperLimit - value) <= (unsigned)(upperLimit - lowerLimit));
 }
 
-/*bool is_bpm_ok(float bpm) {
-  return ((unsigned)(150 - bpm) <= 80);       //lower limit 70, upper limit 150.
-}
-
-bool is_spo2_ok(float spo2) {
-  return !(spo2 < 90);
-}
-
-bool is_respRate_ok(float respRate) {       //lower limit 30, upper limit 95.
-  return ((unsigned)(95-respRate) <= 65);
-}*/
-
+//bpm [70,150], spo2[90,100], respRate[30, 95]
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
   //return (is_bpm_ok(bpm) && is_spo2_ok(spo2) && is_respRate_ok(respRate));
   return ( is_vital_normal(bpm,150,70) && is_vital_normal(spo2,100,90) && is_vital_normal(respRate,95,30) );
 }
 
 int main() {
+  /*
   //vitalsAreOk(bpm,spo2,respRate)
   assert(vitalsAreOk(80, 95, 60) == true);        // All Normal
   assert(vitalsAreOk(60, 95, 60) == false);       //AL_bpm, N_sp02, N_resp
@@ -31,4 +21,8 @@ int main() {
   assert(vitalsAreOk(80, 89, 60) == false);       //N_bpm,  A_sp02, N_resp
   assert(vitalsAreOk(60, 89, 22) == false);       //All Abnormal Low
   assert(vitalsAreOk(180, 89, 98) == false);      //All Abnormal High
+  */
+  assert(is_vital_normal(40, 100, 50) == false);
+  assert(is_vital_normal(120, 100, 50) == false);
+  assert(is_vital_normal(92, 100, 50) == true);
 }
