@@ -6,7 +6,6 @@ bool is_vital_normal(float value, int upperLimit, int lowerLimit) {    // (norma
 
 //bpm [70,150], spo2[90,100], respRate[30, 95]
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
-  //return (is_bpm_ok(bpm) && is_spo2_ok(spo2) && is_respRate_ok(respRate));
   return ( is_vital_normal(bpm,150,70) && is_vital_normal(spo2,100,90) && is_vital_normal(respRate,95,30) );
 }
 
