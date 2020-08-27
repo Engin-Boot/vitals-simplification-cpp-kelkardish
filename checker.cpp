@@ -1,7 +1,8 @@
 #include <assert.h>
 
+
 bool is_bpm_ok(float bpm) {
-  return ((150 - bpm) <=80);
+  return !(bpm < 70 || bpm > 150);
 }
 
 bool is_spo2_ok(float spo2) {
