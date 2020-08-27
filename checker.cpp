@@ -10,7 +10,7 @@ bool is_spo2_ok(float spo2) {
 }
 
 bool is_respRate_ok(float respRate) {       //lower limit 30, upper limit 95.
-  return ((unsigned)(95-resprate) <= 65);
+  return ((unsigned)(95-respRate) <= 65);
 }
 
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
