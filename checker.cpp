@@ -18,7 +18,7 @@ bool is_respRate_ok(float respRate) {       //lower limit 30, upper limit 95.
 
 bool vitalsAreOk(float bpm, float spo2, float respRate) {
   //return (is_bpm_ok(bpm) && is_spo2_ok(spo2) && is_respRate_ok(respRate));
-  return ( is_vital_normal(bpm,150,70) && is_vital_normal(spo2,100,90) && is_vital_normal(respRate(respRate,95,30) );
+  return ( is_vital_normal(bpm,150,70) && is_vital_normal(spo2,100,90) && is_vital_normal(respRate,95,30) );
 }
 
 int main() {
