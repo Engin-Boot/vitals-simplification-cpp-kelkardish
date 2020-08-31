@@ -39,19 +39,26 @@ public:
 		alertSound.raiseAlert(vitalName, level);
 	}
 };
-bool vitalIsOk(Vitals* vitalList, int n_Vitals, AlertInterface* alerterPtr ) {
-	
-	for (int i = 0; i < n_Vitals; i++) {
-		if (vitalList[i].measure < vitalList[i].lowerValue) {
-			alerterPtr->raiseAlert(vitalList[i].vitalName, "VITAL IS LOW!");
+
+bool isVitalInRange(Vitals vital, AlertInterface* alerterPtr) {
+	if (vital.measure < vital.lowerValue) {
+			alerterPtr->raiseAlert(vital.vitalName, "VITAL IS LOW!");
 			return false;
-		}
-		else if (vitalList[i].measure > vitalList[i].upperValue) {
-			alerterPtr->raiseAlert(vitalList[i].vitalName, "VITAL IS HIGH!");
+	}
+	else if (vital.measure > vital.upperValue) {
+			alerterPtr->raiseAlert(vital.vitalName, "VITAL IS HIGH!");
 			return false;
-		}
 	}
 	return true;
+}
+
+bool vitalsAreOk(Vitals* vitalList, int n_Vitals, AlertInterface* alerterPtr ) {
+	
+	bool flag = true;
+	for (int i = 0; i < n_Vitals; i++) {
+		flag = flag & isVitalInRange(vitalList[i], alerterPtr);
+	}
+	return flag;
 }
 
 //bpm [70,150], spo2[90,100], respRate[30, 95]
@@ -79,10 +86,14 @@ int main() {
 	//AlertWtihSound alertSound;
 	
 	AlertWithSoundandSMS awss;
-	assert(vitalIsOk(vital1, 3, &awss) == true);
-	assert(vitalIsOk(vital2, 3, &awss) == false);
-	assert(vitalIsOk(vital3, 3, &awss) == false);
-	assert(vitalIsOk(vital4, 3, &awss) == false);
+	assert(vitalsAreOk(vital1, 3, &awss) == true);
+	assert(vitalsAreOk(vital2, 3, &awss) == false);
+	assert(vitalsAreOk(vital3, 3, &awss) == false);
+	assert(vitalsAreOk(vital4, 3, &awss) == false);
+
+	assert(isVitalInRange({ "bpm",155,70,150 }, &awss) == false);
+	assert(isVitalInRange({ "spo2",80,90,100 }, &awss) == false);
+	assert(isVitalInRange({ "respRate",85,30,95}, &awss) == true);
 
 
 //	assert(vitalIsOk(vital1, nVitals, &alertSMS) == true);
